@@ -5,19 +5,19 @@ public class CalculatorTest {
         CalculatorRealisation calculatorRealisation = new CalculatorRealisation();
         double result;
 
-        result = calculatorRealisation.calculator.calculator(-5, 20, '+');
+        result = calculatorRealisation.calculate(-5, '+',20);
         System.out.println(result);
-        result = calculatorRealisation.calculator.calculator(7, 11, '*');
+        result = calculatorRealisation.calculate(7, '*',11);
         System.out.println(result);
-        result = calculatorRealisation.calculator.calculator(78, 39, '/');
+        result = calculatorRealisation.calculate(78, '/',39);
         System.out.println(result);
-        result = calculatorRealisation.calculator.calculator(10, -2, '-');
+        result = calculatorRealisation.calculate(10, '-',-2);
         System.out.println(result);
-        result = calculatorRealisation.calculator.calculator(25, 2, '#');
+        result = calculatorRealisation.calculate(25, '#',2);
         System.out.println(result);
-        result = calculatorRealisation.calculator.calculator(5, 3, '^');
+        result = calculatorRealisation.calculate(5, '^',3);
         System.out.println(result);
-        result = calculatorRealisation.calculator.calculator(1, 2, '?');
+        result = calculatorRealisation.calculate(1, '?', 2);
         System.out.println(result);
     }
 }

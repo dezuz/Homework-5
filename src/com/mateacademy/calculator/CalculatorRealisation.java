@@ -1,41 +1,37 @@
 package com.mateacademy.calculator;
 
-public class CalculatorRealisation {
-    Calculator calculator = (firstNumber, secondNumber, operation) -> {
-        return (operation == '+') ? addition(firstNumber, secondNumber)
-                : (operation == '*') ? multiplication(firstNumber, secondNumber)
-                : (operation == '/' && secondNumber != 0) ? division(firstNumber, secondNumber)
-                : (operation == '-') ? subtraction(firstNumber, secondNumber)
-                : (operation == '#' && secondNumber != 0 ) ? squareRoot(firstNumber, secondNumber)
-                : (operation == '^') ? toThePower(firstNumber, secondNumber)
-                : (operation == '?') ? customOperation(firstNumber, secondNumber) : 0;
-    };
+import java.util.HashMap;
+import java.util.Map;
 
-    private int addition(int first, int second) {
-        return first + second;
+public class CalculatorRealisation{
+    private Map<Character, Calculator> calculatorMap = new HashMap<>();
+
+    CalculatorRealisation() {
+        calculatorMap.put('+', (first, second) -> first + second);
+        calculatorMap.put('*', (first, second) -> first * second);
+        calculatorMap.put('/', (first, second) -> {
+            if (second == 0) {
+                throw new IllegalArgumentException("Division by the zero");
+            }
+            return first / second;
+        });
+        calculatorMap.put('-', (first, second) -> first - second);
+        calculatorMap.put('#', (number, indexOfTheRoot) -> {
+            if (indexOfTheRoot == 0) {
+                throw new IllegalArgumentException("Division by the zero");
+            }
+            return Math.pow(number, 1 / indexOfTheRoot);
+        });
+        calculatorMap.put('^', (number, power) -> Math.pow(number, power));
+        calculatorMap.put('?', (first, power) -> Math.pow((first + power) / (first + 117), power));
     }
 
-    private int multiplication(int first, int second) {
-        return first * second;
-    }
-
-    private double division(int first, int second) {
-        return (double)first / second;
-    }
-
-    private int subtraction(int first, int second) {
-        return first - second;
-    }
-
-    private double squareRoot(int number, int indexOfTheRoot) {
-        return Math.pow(number, 1 / (double)indexOfTheRoot);
-    }
-
-    private double toThePower(int number, int power) {
-        return Math.pow(number, power);
-    }
-
-    private double customOperation(int first, int power) {
-        return Math.pow((double)(first + power) / first, power) + 117;
+    public double calculate(double firstNumber, char operation, double secondNumber) {
+        if (calculatorMap.get(operation) == null) {
+            throw new IllegalArgumentException("Unknown operation");
+        }
+        else {
+            return calculatorMap.get(operation).calculator(firstNumber, secondNumber);
+        }
     }
 }

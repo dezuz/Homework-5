@@ -2,9 +2,10 @@ package com.mateacademy.calculator;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.DoubleBinaryOperator;
 
-public class CalculatorRealisation{
-    private Map<Character, Calculator> calculatorMap = new HashMap<>();
+public class CalculatorRealisation {
+    private Map<Character, DoubleBinaryOperator> calculatorMap = new HashMap<>();
 
     CalculatorRealisation() {
         calculatorMap.put('+', (first, second) -> first + second);
@@ -31,7 +32,7 @@ public class CalculatorRealisation{
             throw new IllegalArgumentException("Unknown operation");
         }
         else {
-            return calculatorMap.get(operation).calculator(firstNumber, secondNumber);
+            return calculatorMap.get(operation).applyAsDouble(firstNumber, secondNumber);
         }
     }
 }

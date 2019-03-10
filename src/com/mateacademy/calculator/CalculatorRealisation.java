@@ -29,6 +29,7 @@ public class CalculatorRealisation {
     }
 
     public double calculate(double firstNumber, char operation, double secondNumber) {
-        return Optional.ofNullable(calculatorMap.get(operation)).orElseThrow(() -> new IllegalArgumentException("Unknown operation")).applyAsDouble(firstNumber, secondNumber);
+        return Optional.ofNullable(calculatorMap.get(operation)).orElseThrow(()
+                -> new IllegalArgumentException("Unknown operation")).applyAsDouble(firstNumber, secondNumber);
     }
 }

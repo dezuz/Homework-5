@@ -2,12 +2,13 @@ package com.mateacademy.calculator;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.DoubleBinaryOperator;
 
 public class CalculatorRealisation {
     private Map<Character, DoubleBinaryOperator> calculatorMap = new HashMap<>();
 
-    CalculatorRealisation() {
+    public CalculatorRealisation() {
         calculatorMap.put('+', (first, second) -> first + second);
         calculatorMap.put('*', (first, second) -> first * second);
         calculatorMap.put('/', (first, second) -> {
@@ -28,11 +29,6 @@ public class CalculatorRealisation {
     }
 
     public double calculate(double firstNumber, char operation, double secondNumber) {
-        if (calculatorMap.get(operation) == null) {
-            throw new IllegalArgumentException("Unknown operation");
-        }
-        else {
-            return calculatorMap.get(operation).applyAsDouble(firstNumber, secondNumber);
-        }
+        return Optional.ofNullable(calculatorMap.get(operation)).orElseThrow(() -> new IllegalArgumentException("Unknown operation")).applyAsDouble(firstNumber, secondNumber);
     }
 }
